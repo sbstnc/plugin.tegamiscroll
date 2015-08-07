@@ -90,7 +90,6 @@ class Main:
         return view_mode
 
     def _remove_articles(self, text, keep=[]):
-        text = text.encode('utf-8')
         # if no sort tokens have been specified by the user xbmc uses 'the' by default
         articles_default = {u'the':u''}
         articles = self.tokens if self.tokens else articles_default
@@ -110,7 +109,7 @@ class Main:
     def _parse_files(self, sortLetterList, hasParentItem, ignoreArticles):
         if self.path:
             isSeason = re.search('videodb://tvshows/titles/\d+/',self.path)
-            if self.path == "videodb://movies/years/" or self.path == "videodb://tvshows/years/" or isSeason:
+            if self.path == "videodb://movies/years/" or self.path == "videodb://tvshows/years/" or self.path == "musicdb://years/" or isSeason:
                 return
             json_query = xbmc.executeJSONRPC('{"jsonrpc": "2.0", "method": "Files.GetDirectory", "params": {"directory": "%s", "media": "files", "sort": {"order": "ascending", "method": "label", "ignorearticle": true}}, "id": 1}' % (self.path))
             json_query = unicode(json_query, 'utf-8', errors='ignore')
